@@ -35,3 +35,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+Lib
+Scripts
+pyvenv.cfg
