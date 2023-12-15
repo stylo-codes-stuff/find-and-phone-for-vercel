@@ -25,7 +25,7 @@ def getinformation(number):
     number = "+" + number
     num_data = {"Number": number, "Valid": [], "Region Code": [], "Line Type": []}
     num = phonenumbers.parse(number, None)
-    if phonenumbers.is_valid_number(num) == True:
+    if phonenumbers.is_valid_number(num):
         num_data["Valid"].append("Yes")
         num_data["Region Code"].append(phonenumbers.region_code_for_number(num))
         num_data["Line Type"].append(get_line_type(number))

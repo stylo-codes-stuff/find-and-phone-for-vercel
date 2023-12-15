@@ -39,3 +39,4 @@ yarn-error.log*
 Lib
 Scripts
 pyvenv.cfg
+.idea
