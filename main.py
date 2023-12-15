@@ -19,14 +19,26 @@ def main():
     return render_template('base.html', name='Input Phone Number Below!', title='Phone Number Information')
 
 
+class InvalidPhoneNumber(Exception):
+    def __init__(self, message=None):
+        self.message = message
+        super().__init__(message)
+
+
 # noinspection PyBroadException
 @app.route('/numberInfo', methods=['GET', 'POST'])
 def numberInfo():
     try:
-        return phoneNumbers.getinformation(str(list(request.form.values())[0]))
+        information = phoneNumbers.getinformation(str(list(request.form.values())[0]))
+        for key, value in information.items():
+            information[key] = str(value).replace('[', '').replace(']', '').replace("'", '')
+        print(information)
+        if information['Valid'][0] == 'No':
+            raise InvalidPhoneNumber("This is an invalid phone number")
+        return render_template('info.html', info=information)
 
-    except Exception as e:
-        return f"Unknown error, or the phone number was incorrectly entered. <br> Error: <code>{e}<code> <br> <a href={flask.url_for('main')}>Link To Go Back</a>"
+    except BaseException as e:
+        return render_template('error.html', error=str(e), prevPage='/')
         # https://stackoverflow.com/questions/27539309/how-do-i-create-a-link-to-another-html-page
 
 

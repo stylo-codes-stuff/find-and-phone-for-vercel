@@ -22,7 +22,6 @@ def get_line_type(number):
 
 def getinformation(number):
     number = number.replace(" ", "-")
-    number = "+" + number
     num_data = {"Number": number, "Valid": [], "Region Code": [], "Line Type": []}
     num = phonenumbers.parse(number, None)
     if phonenumbers.is_valid_number(num):
