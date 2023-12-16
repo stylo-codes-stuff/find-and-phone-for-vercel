@@ -1,6 +1,6 @@
 import phonenumbers
 
-
+#psuedo switch that gets the numbers line type
 def get_line_type(number):
     number = phonenumbers.parse(number, None)
     switch = {
@@ -19,9 +19,11 @@ def get_line_type(number):
     }
     return switch.get(phonenumbers.number_type(number), "nothing")
 
-
+# main function that gathers all the information for the number and stores it in a multidict
 def getinformation(number):
     number = number.replace(" ", "-")
+    number = "+1" + number
+    print(number)
     num_data = {"Number": number, "Valid": [], "Region Code": [], "Line Type": []}
     num = phonenumbers.parse(number, None)
     if phonenumbers.is_valid_number(num):

@@ -1,11 +1,11 @@
 import flask
+from fetchScripts import sphinxFetch
 from flask import Flask
 from flask import request
 from flask import render_template
-
 import phoneNumbers  # handler for phonenumbers
 import phonenumbers  # lib used in phoneNumbers
-
+debug = True
 app = Flask(__name__)
 
 
@@ -28,16 +28,19 @@ class InvalidPhoneNumber(Exception):
 # noinspection PyBroadException
 @app.route('/numberInfo', methods=['GET', 'POST'])
 def numberInfo():
-    try:
+    # try:
         information = phoneNumbers.getinformation(str(list(request.form.values())[0]))
+        sphinx_info = sphinxFetch(str(list(request.form.values())[0]))
         for key, value in information.items():
             information[key] = str(value).replace('[', '').replace(']', '').replace("'", '')
+            sphinx_info[key] = str(value).replace('[', '').replace(']', '').replace("'", '')
+
         print(information)
         if information['Valid'][0] == 'No':
             raise InvalidPhoneNumber("This is an invalid phone number")
         return render_template('info.html', info=information)
 
-    except BaseException as e:
+    # except BaseException as e:
         return render_template('error.html', error=str(e), prevPage='/')
         # https://stackoverflow.com/questions/27539309/how-do-i-create-a-link-to-another-html-page
 
