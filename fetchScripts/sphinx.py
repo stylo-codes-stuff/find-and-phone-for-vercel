@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 baseURL = "http://165.227.37.175/callers/browse/"
 new_list = []
 def sphinxFetch(number):
+    new_list.clear()
     print(number)
     req = requests.get(url=baseURL + number)
     print(baseURL+number)

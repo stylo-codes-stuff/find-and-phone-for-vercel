@@ -28,7 +28,7 @@ class InvalidPhoneNumber(Exception):
 # noinspection PyBroadException
 @app.route('/numberInfo', methods=['GET', 'POST'])
 def numberInfo():
-    # try:
+    try:
         information = phoneNumbers.getinformation(str(list(request.form.values())[0]))
         sphinx_info = sphinxFetch(list(request.form.values())[0])
         for key, value in information.items():
@@ -37,7 +37,7 @@ def numberInfo():
             raise InvalidPhoneNumber("This is an invalid phone number")
         return render_template('info.html', info=information, sphinx=sphinx_info)
 
-    # except BaseException as e:
+    except BaseException as e:
         return render_template('error.html', error=str(e), prevPage='/')
         # https://stackoverflow.com/questions/27539309/how-do-i-create-a-link-to-another-html-page
 
