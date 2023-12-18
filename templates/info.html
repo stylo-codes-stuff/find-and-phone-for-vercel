@@ -1,14 +1,26 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
     </head>
     <body>
 
-    <h1>Information about {{number}}</h1>
+    <h1>Information about {{number}} from the API</h1>
     <ul>
     {% for key, value in info.items() %}
         <li>{{key}} - {{ value }}</li>
     {% endfor %}
+    <h1>Information from the sphinx number tracker</h1>
+    {% for item in sphinx %}
+        <li>{{item}}</li>
+    {% endfor %}
+    The reports from this website have varying credibility.
+    Have information about this phone number you want to contribute? Contribute <a href="http://165.227.37.175/callers/browse/{{number}}">here</a>
     </ul>
     </body>
+    <div class="navbar">
+        back-end and frontend programmed by stylo-codes-stuff<img width="30" id= image src="{{ url_for('static', filename='img/pfp.png') }}">
+        additional backend programmed by Blue-Robin-Taken
+    </div>
 </html>
