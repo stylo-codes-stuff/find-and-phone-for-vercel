@@ -1,5 +1,5 @@
 import flask
-from fetchScripts import sphinxFetch
+from fetchScripts.sphinx import sphinxFetch
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -30,15 +30,12 @@ class InvalidPhoneNumber(Exception):
 def numberInfo():
     # try:
         information = phoneNumbers.getinformation(str(list(request.form.values())[0]))
-        sphinx_info = sphinxFetch(str(list(request.form.values())[0]))
+        sphinx_info = sphinxFetch(list(request.form.values())[0])
         for key, value in information.items():
             information[key] = str(value).replace('[', '').replace(']', '').replace("'", '')
-            sphinx_info[key] = str(value).replace('[', '').replace(']', '').replace("'", '')
-
-        print(information)
         if information['Valid'][0] == 'No':
             raise InvalidPhoneNumber("This is an invalid phone number")
-        return render_template('info.html', info=information)
+        return render_template('info.html', info=information, sphinx=sphinx_info)
 
     # except BaseException as e:
         return render_template('error.html', error=str(e), prevPage='/')

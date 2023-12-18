@@ -9,6 +9,10 @@
     {% for key, value in info.items() %}
         <li>{{key}} - {{ value }}</li>
     {% endfor %}
+    <h1>Information from the sphinx number tracker</h1>
+    {% for item in sphinx %}
+        <li>{{item}}</li>
+    {% endfor %}
     </ul>
     </body>
 </html>
