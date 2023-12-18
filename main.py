@@ -16,7 +16,7 @@ def api():
 
 @app.route('/')
 def main():
-    return render_template('base.html', name='Input Phone Number Below!', title='Phone Number Information')
+    return render_template('base.html', name='Input Phone Number Below!', title='Find and Phone')
 
 
 class InvalidPhoneNumber(Exception):
